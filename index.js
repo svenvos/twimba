@@ -10,6 +10,8 @@ document.addEventListener('click', function(e) {
         handleReplyClick(e.target.dataset.reply);
     } else if (e.target.id === "tweet-btn") {
         handleTweetBtnClick();
+    } else if (e.target.id === "reply-btn") {
+        addReply(e.target.dataset.replyBtn);
     }
 });
 
@@ -62,6 +64,25 @@ function handleTweetBtnClick() {
         render();
         tweetInput.value = "";
     }
+}
+
+function addReply(tweetId) {
+    const replyInput = document.getElementById(`reply-input-${tweetId}`);
+    if (replyInput.value.trim().length !== 0) {
+        tweetsData.forEach((tweet) => {
+            if (tweet.uuid === tweetId) {
+                tweet.replies.push({
+                    handle: "@Scrimba",
+                    profilePic: "/images/scrimbalogo.png",
+                    tweetText: replyInput.value
+                });
+            }
+        });
+        render();
+        replyInput.value = "";
+    }
+    
+    document.getElementById(`replies-${tweetId}`).classList.toggle('hidden');
 }
 
 function getFeedHtml() {
@@ -127,6 +148,10 @@ function getFeedHtml() {
                 </div>
                 <div class="hidden" id="replies-${tweet.uuid}">
                     ${repliesHtml}
+                    <div class="" id="add-reply">
+                        <textarea class="reply" id="reply-input-${tweet.uuid}" placeholder="Add your reply..."></textarea>
+                        <button class="reply-btn" id="reply-btn" data-reply-btn=${tweet.uuid}>Add reply</button>
+                    </div>
                 </div>   
             </div>
         `;

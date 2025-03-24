@@ -56,6 +56,17 @@ textarea{
     line-height: 30px;
 }
 
+.reply, .reply-btn {
+    margin: 10px 0 10px 40px;
+    width: 80%;
+    font-size: 14px;
+}
+
+.reply {
+    border: 1px solid #1DA1F2;
+    border-radius: 10px;
+}
+
 button{
     background-color: #1DA1F2;
     border: none;
